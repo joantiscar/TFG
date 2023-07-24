@@ -23,7 +23,6 @@ public class DTXConverter : MonoBehaviour
     public GameObject quarterPrefab;
     public GameObject beginingPrefab;
     public GameObject[] chipSpawners;
-    public GameObject good;
     public int score = 0;
 
     public GameObject BGMChannel;
@@ -39,7 +38,8 @@ public class DTXConverter : MonoBehaviour
     public GameObject RideCymbalChannel;
     public GameObject LeftCymbalChannel;
 
-    public int eBPMChannel = 08;
+    public int eBGMChannel = 1;
+    public int eBPMChannel = 8;
     public int HiHatClose = 11;
     public int Snare = 12;
     public int BassDrum = 13;
@@ -252,7 +252,7 @@ public class DTXConverter : MonoBehaviour
 
 
     void generateBars(){
-        var newObj = good;
+        var newObj = channels;
         for (int p = 0; p < lastMeasure + 2; p++){
             createBarForChannelAtHeight(p, HiHatCloseChannel);
             createBarForChannelAtHeight(p, SnareChannel);
@@ -309,60 +309,90 @@ public class DTXConverter : MonoBehaviour
                             case 11:
                                 x = HiHatCloseChannel.transform.position.x;
                                 z = HiHatCloseChannel.transform.position.z;
+                                if (HiHatCloseChannel.GetComponent<Channel>().defaultChip == -1){
+                                    HiHatCloseChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = HiHatCloseChannel;
                                 c = Color.blue;
                                 break;
                             case 12:
                                 x = SnareChannel.transform.position.x;
                                 z = SnareChannel.transform.position.z;
+                                if (SnareChannel.GetComponent<Channel>().defaultChip == -1){
+                                    SnareChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = SnareChannel;
                                 c = Color.yellow;
                                 break;
                             case 13:
                                 x = BassDrumChannel.transform.position.x;
                                 z = BassDrumChannel.transform.position.z;
+                                if (BassDrumChannel.GetComponent<Channel>().defaultChip == -1){
+                                    BassDrumChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = BassDrumChannel;
                                 c = new Color(128, 0, 128, 1);
                                 break;
                             case 14:
                                 x = HighTomChannel.transform.position.x;
                                 z = HighTomChannel.transform.position.z;
+                                if (HighTomChannel.GetComponent<Channel>().defaultChip == -1){
+                                    HighTomChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = HighTomChannel;
                                 c = Color.green;
                                 break;
                             case 15:
                                 x = LowTomChannel.transform.position.x;
                                 z = LowTomChannel.transform.position.z;
+                                if (LowTomChannel.GetComponent<Channel>().defaultChip == -1){
+                                    LowTomChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = LowTomChannel;
                                 c = Color.red;
                                 break;
                             case 16:
                                 x = CymbalChannel.transform.position.x;
                                 z = CymbalChannel.transform.position.z;
+                                if (CymbalChannel.GetComponent<Channel>().defaultChip == -1){
+                                    CymbalChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = CymbalChannel;
                                 c = Color.blue;
                                 break;
                             case 17:
                                 x = FloorTomChannel.transform.position.x;
                                 z = FloorTomChannel.transform.position.z;
+                                if (FloorTomChannel.GetComponent<Channel>().defaultChip == -1){
+                                    FloorTomChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = FloorTomChannel;
                                 c = new Color((float) 178 / 255, (float) 133 / 235, (float) 67 / 255);
                                 break;
                             case 18:
                                 x = HiHatOpenChannel.transform.position.x;
                                 z = HiHatOpenChannel.transform.position.z;
+                                if (HiHatOpenChannel.GetComponent<Channel>().defaultChip == -1){
+                                    HiHatOpenChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = HiHatOpenChannel;
                                 c = Color.blue;
                                 break;
                             case 19:
                                 x = RideCymbalChannel.transform.position.x;
                                 z = RideCymbalChannel.transform.position.z;
+                                if (RideCymbalChannel.GetComponent<Channel>().defaultChip == -1){
+                                    RideCymbalChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = RideCymbalChannel;
                                 c = Color.black;
                                 break;
                             case 20:
                                 x = LeftCymbalChannel.transform.position.x;
                                 z = LeftCymbalChannel.transform.position.z;
+                                if (LeftCymbalChannel.GetComponent<Channel>().defaultChip == -1){
+                                    LeftCymbalChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
+                                }
                                 newParent = LeftCymbalChannel;
                                 c = Color.magenta;
                                 break;
@@ -380,7 +410,7 @@ public class DTXConverter : MonoBehaviour
                             newObj.GetComponent<Nota>().GetComponent<Renderer>().material.SetColor("_Color", c);
                             newObj.name = "Nota " + cont;
                             cont++;
-                            newObj.transform.parent = newParent.transform;
+                            newObj.transform.parent = newParent.GetComponent<Channel>().notesContainer.transform;
 
                         }
 
@@ -534,5 +564,9 @@ public class DTXConverter : MonoBehaviour
     public void channelPressed(int channel)
     {
         
+    }
+
+    public void IncreaseScore(int ammount){
+        score += ammount;
     }
 }
