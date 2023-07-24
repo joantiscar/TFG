@@ -7,6 +7,7 @@ public class Nota : MonoBehaviour
     public int objectNumber;
     public int objectChannel;
     public DTXConverter DTXConverter;
+    public GameObject FootIcon;
     public float speed = 0;
     // Start is called before the first frame update
     void Start()
@@ -25,7 +26,7 @@ public class Nota : MonoBehaviour
             if (objectChannel == DTXConverter.eBPMChannel){
                 DTXConverter.changeBPM(objectNumber);
             }else{
-                DTXConverter.playChip(objectNumber);
+                if (DTXConverter.auto) DTXConverter.playChip(objectNumber);
             }
             
         }else if (other.name == "DeathLine"){

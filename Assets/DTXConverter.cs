@@ -56,6 +56,9 @@ public class DTXConverter : MonoBehaviour
 
     double timeSignature = 1;
 
+    int lastMeasure = 0;
+    public bool auto = false;
+
     SortedDictionary<string, List<string>> map = new SortedDictionary<string, List<string>>();
     private const string CharList = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";
     int base36ToDecimal(string input)
@@ -101,6 +104,7 @@ public class DTXConverter : MonoBehaviour
                             map.Add(key, new List<string>());
                         }
                         map[key].Add(objects);
+                        if (int.Parse(key.Substring(0, 3)) > lastMeasure) lastMeasure = int.Parse(key.Substring(0, 3));
 
                     }
                     else if (lineClean.StartsWith("#TITLE:"))
@@ -234,12 +238,38 @@ public class DTXConverter : MonoBehaviour
         a.GetComponent<AudioSource>().Play();
     }
 
+
+    void createBarForChannelAtHeight(int pos, GameObject channel){
+        var newObj = Instantiate(beginingPrefab, new Vector3(channel.transform.position.x, (pos * noteSeparationValue), channel.transform.position.z), Quaternion.Euler(0, 0, 0));
+        newObj.transform.parent = channel.transform;
+        newObj = Instantiate(quarterPrefab, new Vector3(channel.transform.position.x, ((pos + (float) 0.25) * noteSeparationValue), channel.transform.position.z), Quaternion.Euler(0, 0, 0));
+        newObj.transform.parent = channel.transform;
+        newObj = Instantiate(quarterPrefab, new Vector3(channel.transform.position.x, ((pos + (float) 0.50) * noteSeparationValue), channel.transform.position.z), Quaternion.Euler(0, 0, 0));
+        newObj.transform.parent = channel.transform;
+        newObj = Instantiate(quarterPrefab, new Vector3(channel.transform.position.x, ((pos + (float) 0.75) * noteSeparationValue), channel.transform.position.z), Quaternion.Euler(0, 0, 0));
+        newObj.transform.parent = channel.transform;
+    }
+
+
+    void generateBars(){
+        var newObj = good;
+        for (int p = 0; p < lastMeasure + 2; p++){
+            createBarForChannelAtHeight(p, HiHatCloseChannel);
+            createBarForChannelAtHeight(p, SnareChannel);
+            createBarForChannelAtHeight(p, BassDrumChannel);
+            createBarForChannelAtHeight(p, HighTomChannel);
+            createBarForChannelAtHeight(p, LowTomChannel);
+            createBarForChannelAtHeight(p, CymbalChannel);
+            createBarForChannelAtHeight(p, FloorTomChannel);
+            createBarForChannelAtHeight(p, RideCymbalChannel);
+            createBarForChannelAtHeight(p, LeftCymbalChannel);
+        }
+    }
+
     void generateMap()
     {
         int cont = 0;
-        /*for (int p = 0; p < 3599; p++){
-            var newObj = Instantiate(notaPrefab, new Vector3(x, ((j + (float)(m * distance)) * noteSeparationValue) + 4, z), Quaternion.Euler(0, 0, 90));
-        }*/
+        generateBars();
         foreach (String s in map.Keys)
         {
             // ESTA MAL ANAR DE 0 A 3599 I FER PRIMER LA TIME SIGNATURE I DESPUES LA RESTA EN FUNCIO DEL NOU ESPAI
@@ -316,7 +346,7 @@ public class DTXConverter : MonoBehaviour
                                 x = FloorTomChannel.transform.position.x;
                                 z = FloorTomChannel.transform.position.z;
                                 newParent = FloorTomChannel;
-                                c = Color.red;
+                                c = new Color((float) 178 / 255, (float) 133 / 235, (float) 67 / 255);
                                 break;
                             case 18:
                                 x = HiHatOpenChannel.transform.position.x;
@@ -344,7 +374,7 @@ public class DTXConverter : MonoBehaviour
                             newObj.GetComponent<Nota>().objectChannel = i;  
                             newObj.GetComponent<Nota>().DTXConverter = this;
                             if (i == HiHatOpen || i == BassDrum) {
-                                newObj.transform.GetChild(0).gameObject.SetActive(true);
+                                newObj.GetComponent<Nota>().FootIcon.SetActive(true);
                             }
                             if (i == 1 || i == 8) newObj.GetComponent<MeshRenderer>().enabled = false;
                             newObj.GetComponent<Nota>().GetComponent<Renderer>().material.SetColor("_Color", c);
