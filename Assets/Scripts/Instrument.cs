@@ -13,7 +13,6 @@ public class Instrument : MonoBehaviour
 
     public void Play(int force){
         // TODO: multiples sonidos
-        Debug.Log(gameObject.transform.parent.name);
         channel.GetComponent<Channel>().handleInput();
     }
 }

@@ -7144,7 +7144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &1190971136
 Transform:
   m_ObjectHideFlags: 0
@@ -7377,7 +7377,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6803edce0201f574f923fd9d10e5b30a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_InteractionManager: {fileID: 0}
+  m_InteractionManager: {fileID: 240243442}
   m_InteractionLayerMask:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -11472,8 +11472,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c8dc8e5b95dcf6489e57273c03049d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: C:/Users/GABE NEWELL/code/joantiscar/TFG_AHORASI/Assets/notUpload/Megadeth
-    - Hangar 18/Megadeth - Hangar 18.dtx
+  path: 
   BPMs:
   - 0
   - 0
