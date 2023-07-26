@@ -4,16 +4,16 @@ using UnityEngine;
 
 public class Instrument : MonoBehaviour
 {
-    AudioSource sound;
+    public GameObject channel;
     // Start is called before the first frame update
     void Start()
     {
 
-        sound = GetComponent<AudioSource>();
     }
 
     public void Play(int force){
         // TODO: multiples sonidos
-        sound.Play();
+        Debug.Log(gameObject.transform.parent.name);
+        channel.GetComponent<Channel>().handleInput();
     }
 }

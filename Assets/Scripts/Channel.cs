@@ -60,7 +60,7 @@ public class Channel : MonoBehaviour
             mat.DisableKeyword("_EMISSION");
     }
 
-    void handleInput(){
+    public void handleInput(){
         if (!togleable || (togleValue == false && !Input.GetKey(button2)) || togleValue == true && Input.GetKey(button2))
             {
                 if (notesContainer.transform.childCount > 0)

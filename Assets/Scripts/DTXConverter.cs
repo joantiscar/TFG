@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 public class DTXConverter : MonoBehaviour
 {
-    string path;
+    public string path;
     string[] fileContent;
     public float[] BPMs = new float[1295];
     public string[] chips = new string[1295];
@@ -82,7 +82,7 @@ public class DTXConverter : MonoBehaviour
 
     void parseFile()
     {
-        path = EditorUtility.OpenFilePanel("Select a map", "", "dtx");
+        //path = EditorUtility.OpenFilePanel("Select a map", "", "dtx");
         if (path.Length != 0)
         {
             fileContent = File.ReadAllLines(path);
