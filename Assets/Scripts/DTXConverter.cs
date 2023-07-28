@@ -295,25 +295,18 @@ public class DTXConverter : MonoBehaviour
                 {
                     if (!notes[m].Equals("00"))
                     {
-                        float x = 0, z = 0;
                         Color c = Color.black;
                         GameObject newParent = this.gameObject;
                         switch (i)
                         {
 
                             case 01:
-                                x = BGMChannel.transform.position.x;
-                                z = BGMChannel.transform.position.z;
                                 newParent = BGMChannel;
                                 break;
                             case 08:
-                                x = BPMChannel.transform.position.x;
-                                z = BPMChannel.transform.position.z;
                                 newParent = BPMChannel;
                                 break;
                             case 11:
-                                x = HiHatCloseChannel.transform.position.x;
-                                z = HiHatCloseChannel.transform.position.z;
                                 if (HiHatCloseChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     HiHatCloseChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -322,8 +315,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.blue;
                                 break;
                             case 12:
-                                x = SnareChannel.transform.position.x;
-                                z = SnareChannel.transform.position.z;
                                 if (SnareChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     SnareChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -332,8 +323,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.yellow;
                                 break;
                             case 13:
-                                x = BassDrumChannel.transform.position.x;
-                                z = BassDrumChannel.transform.position.z;
                                 if (BassDrumChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     BassDrumChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -343,8 +332,6 @@ public class DTXConverter : MonoBehaviour
 
                                 break;
                             case 14:
-                                x = HighTomChannel.transform.position.x;
-                                z = HighTomChannel.transform.position.z;
                                 if (HighTomChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     HighTomChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -353,8 +340,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.green;
                                 break;
                             case 15:
-                                x = LowTomChannel.transform.position.x;
-                                z = LowTomChannel.transform.position.z;
                                 if (LowTomChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     LowTomChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -363,8 +348,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.red;
                                 break;
                             case 16:
-                                x = CymbalChannel.transform.position.x;
-                                z = CymbalChannel.transform.position.z;
                                 if (CymbalChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     CymbalChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -373,8 +356,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.blue;
                                 break;
                             case 17:
-                                x = FloorTomChannel.transform.position.x;
-                                z = FloorTomChannel.transform.position.z;
                                 if (FloorTomChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     FloorTomChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -383,8 +364,6 @@ public class DTXConverter : MonoBehaviour
                                 c = new Color((float)178 / 255, (float)133 / 235, (float)67 / 255);
                                 break;
                             case 18:
-                                x = HiHatOpenChannel.transform.position.x;
-                                z = HiHatOpenChannel.transform.position.z;
                                 if (HiHatOpenChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     HiHatOpenChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -393,8 +372,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.blue;
                                 break;
                             case 19:
-                                x = RideCymbalChannel.transform.position.x;
-                                z = RideCymbalChannel.transform.position.z;
                                 if (RideCymbalChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     RideCymbalChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -403,8 +380,6 @@ public class DTXConverter : MonoBehaviour
                                 c = Color.black;
                                 break;
                             case 20:
-                                x = LeftCymbalChannel.transform.position.x;
-                                z = LeftCymbalChannel.transform.position.z;
                                 if (LeftCymbalChannel.GetComponent<Channel>().defaultChip == -1)
                                 {
                                     LeftCymbalChannel.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
@@ -415,7 +390,9 @@ public class DTXConverter : MonoBehaviour
                         }
                         if (newParent != this.gameObject)
                         {
-                            var newObj = Instantiate(notaPrefab, new Vector3(x, ((j + (float)(m * distance)) * noteSeparationValue) + 4, z), Quaternion.Euler(0, 0, 90));
+                            var newObj = Instantiate(notaPrefab, 
+                            new Vector3(newParent.transform.position.x, ((j + (float)(m * distance)) * noteSeparationValue) + 4, newParent.transform.position.z), Quaternion.Euler(0, 0, 90), 
+                            this.transform);
                             newObj.GetComponent<Nota>().objectNumber = base36ToDecimal(notes[m]);
                             newObj.GetComponent<Nota>().objectChannel = i;
                             newObj.GetComponent<Nota>().DTXConverter = this;
@@ -476,12 +453,12 @@ public class DTXConverter : MonoBehaviour
         FileBrowser.SetDefaultFilter(".dtx");
         
         FileBrowser.AddQuickLink("Users", "C:\\Users", null);
-        StartCoroutine(ShowLoadDialogCoroutine());
+        //StartCoroutine(ShowLoadDialogCoroutine());
         
 
-        //path = EditorUtility.OpenFilePanel("Select a map", "", "dtx");
-        //parseFile();
-        //StartCoroutine(LoadThings());
+        path = EditorUtility.OpenFilePanel("Select a map", "", "dtx");
+        parseFile();
+        StartCoroutine(LoadThings());
 
     }
 
