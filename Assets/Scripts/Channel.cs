@@ -18,9 +18,10 @@ public class Channel : MonoBehaviour
     public bool togleable = false;
     public bool togleValue = false;
     [ColorUsage(true, true)]
-    public Color neonColor;
+    public Color color;
     public GameObject middle;
     public float maxTimeLight = 0.1f;
+    public Transform instrumentTransform;
     DTXConverter c;
     // Start is called before the first frame update
     void Start()
@@ -33,7 +34,7 @@ public class Channel : MonoBehaviour
     {
         if (moving)
         {
-            transform.Translate(new Vector3(0, -1, 0) * Time.deltaTime * BPM / 240 * c.noteSeparationValue);
+            transform.Translate(Vector3.Scale(Vector3.Scale(new Vector3(0, -1, 0), (transform.parent.transform.localScale)), c.transform.localScale) * Time.deltaTime * BPM / 240 * c.noteSeparationValue );
         }
         if (Input.GetKeyDown(button))
         {
@@ -47,15 +48,15 @@ public class Channel : MonoBehaviour
     {
             Material mat = middle.GetComponent<Renderer>().material;
             mat.EnableKeyword("_EMISSION");
-            mat.SetColor("_EmissionColor", neonColor / 4);
+            mat.SetColor("_EmissionColor", color / 4);
             yield return new WaitForSecondsRealtime(0.0125f);
-            mat.SetColor("_EmissionColor", neonColor / 2);
+            mat.SetColor("_EmissionColor", color / 2);
             yield return new WaitForSecondsRealtime(0.0125f);
-            mat.SetColor("_EmissionColor", neonColor);
+            mat.SetColor("_EmissionColor", color);
             yield return new WaitForSecondsRealtime(0.0125f);
-            mat.SetColor("_EmissionColor", neonColor / 2);
+            mat.SetColor("_EmissionColor", color / 2);
             yield return new WaitForSecondsRealtime(0.0125f);
-            mat.SetColor("_EmissionColor", neonColor / 4);
+            mat.SetColor("_EmissionColor", color / 4);
             yield return new WaitForSecondsRealtime(0.0125f);
             mat.DisableKeyword("_EMISSION");
     }
@@ -78,17 +79,17 @@ public class Channel : MonoBehaviour
                         double distance = Math.Abs(a.transform.position.y - (judgement.transform.position.y + 0.5));
                         if (distance < 0.5)
                         {
-                            c.IncreaseScore(300);
+                            c.PerfectNote();
                             Destroy(a.gameObject);
                         }
                         else if (distance < 1)
                         {
-                            c.IncreaseScore(150);
+                            c.GoodNote();
                             Destroy(a.gameObject);
                         }
                         else if (distance < 1.5)
                         {
-                            c.IncreaseScore(-300);
+                            c.MissedNote();
                             Destroy(a.gameObject);
                         }
                         defaultChip = a.objectNumber;

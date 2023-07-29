@@ -15,6 +15,7 @@ public class ButtonVR : MonoBehaviour
     public UnityEvent onRelease;
     GameObject presser;
     AudioSource sound;
+    public GameObject cage;
     bool isPressed;
 
     void Start()
@@ -25,9 +26,9 @@ public class ButtonVR : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isPressed)
+        if (!isPressed && other.name.Contains("Baqueta"))
         {
-            button.transform.localPosition = new Vector3(0, 0.003f, 0);
+            //button.transform.localPosition = new Vector3(0, 0.003f, 0);
             presser = other.gameObject;
             onPress.Invoke();
             if (sound != null) sound.Play();
@@ -39,7 +40,7 @@ public class ButtonVR : MonoBehaviour
     {
         if (other.gameObject == presser)
         {
-            button.transform.localPosition = new Vector3(0, 0.015f, 0);
+            //button.transform.localPosition = new Vector3(0, 0.015f, 0);
             onRelease.Invoke();
             isPressed = false;
         }
