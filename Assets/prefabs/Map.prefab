@@ -444,6 +444,7 @@ MonoBehaviour:
   middle: {fileID: 5331666796170059961}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666794541364590
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +544,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795820766058}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666794562050777
 GameObject:
   m_ObjectHideFlags: 0
@@ -830,6 +832,7 @@ MonoBehaviour:
   middle: {fileID: 0}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666794573322626
 GameObject:
   m_ObjectHideFlags: 0
@@ -1202,7 +1205,7 @@ Transform:
   - {fileID: 5331666795273980296}
   - {fileID: 5331666795543793354}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &5331666794731811954
 MonoBehaviour:
@@ -3821,6 +3824,8 @@ MonoBehaviour:
     type: 3}
   chipSpawners: []
   score: 0
+  MaterialTransparente: {fileID: 2100000, guid: 32de8b2d41a4f1544b720e8532dac9c4,
+    type: 2}
   BGMChannel: {fileID: 5331666795059132493}
   BPMChannel: {fileID: 5331666794571428691}
   HiHatCloseChannel: {fileID: 5331666794546604943}
@@ -5002,6 +5007,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795529902097}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795034899360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5355,6 +5361,7 @@ MonoBehaviour:
   middle: {fileID: 0}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795096676270
 GameObject:
   m_ObjectHideFlags: 0
@@ -6541,6 +6548,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795480215755}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795480215755
 GameObject:
   m_ObjectHideFlags: 0
@@ -7175,6 +7183,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795909682495}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795551194196
 GameObject:
   m_ObjectHideFlags: 0
@@ -7919,6 +7928,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795820766058}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795670031228
 GameObject:
   m_ObjectHideFlags: 0
@@ -8436,6 +8446,7 @@ MonoBehaviour:
   middle: {fileID: 5331666794874735379}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795789921018
 GameObject:
   m_ObjectHideFlags: 0
@@ -8961,6 +8972,7 @@ MonoBehaviour:
   middle: {fileID: 5331666794523621443}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666795909682495
 GameObject:
   m_ObjectHideFlags: 0
@@ -10076,6 +10088,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795161252482}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666796228584520
 GameObject:
   m_ObjectHideFlags: 0
@@ -10753,6 +10766,7 @@ MonoBehaviour:
   middle: {fileID: 5331666795551194196}
   maxTimeLight: 0.1
   instrumentTransform: {fileID: 0}
+  notePrefab: {fileID: 0}
 --- !u!1 &5331666796443501500
 GameObject:
   m_ObjectHideFlags: 0

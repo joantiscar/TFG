@@ -26,6 +26,7 @@ public class DTXConverter : MonoBehaviour
     public int score = 0;
     bool over = true;
 
+
     public GameObject BGMChannel;
     public GameObject BPMChannel;
     public GameObject HiHatCloseChannel;
@@ -216,6 +217,8 @@ public class DTXConverter : MonoBehaviour
                             thing.parent = newParent.instrumentTransform.parent;                     // Detach
                             thing.localScale = newParent.instrumentTransform.localScale;
                             thing.SetParent(newParent.transform, true);
+                            //thing.GetComponent<MeshRenderer>().material = MaterialTransparente;
+                            //thing.GetComponent<Outline>().OutlineColor = c;
                         }                        
                         newObj.GetComponent<Nota>().objectNumber = base36ToDecimal(notes[m]);
                         newObj.GetComponent<Nota>().objectChannel = i;
@@ -233,7 +236,7 @@ public class DTXConverter : MonoBehaviour
                             newObj.name = "Nota " + totalNotes;
                             totalNotes++;
                         }
-                        // newObj.transform.Find("Model").GetComponent<Renderer>().material.SetColor("_BaseColor", c);
+                        //newObj.transform.Find("Model").GetComponent<Renderer>().material.SetColor("_BaseColor", c);
                         newObj.transform.parent = newParent.notesContainer.transform;
 
                     }
