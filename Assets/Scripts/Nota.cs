@@ -10,14 +10,13 @@ public class Nota : MonoBehaviour
     public GameObject FootIcon;
     public float speed = 0;
     public Channel channel;
-    MeshRenderer m;
+    public MeshRenderer m;
     public bool visible = true;
 
     // Start is called before the first frame update
     void Start()
     {
         channel = gameObject.transform.parent.transform.parent.GetComponent<Channel>();
-        m = this.GetComponent<MeshRenderer>();
         m.enabled = visible;
     }
 
@@ -28,7 +27,7 @@ public class Nota : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
-        if (other.name == "JudgementLine"){
+        if (other.gameObject == channel.judgement){
             if (objectChannel == DTXConverter.eBPMChannel){
                 DTXConverter.changeBPM(objectNumber);
                 Destroy(gameObject);
@@ -42,7 +41,7 @@ public class Nota : MonoBehaviour
                 channel.StartCoroutine(channel.TurnLightsOn());
             }
             
-        }else if (other.name == "DeathLine"){
+        }else if (other.gameObject == channel.death){
             DTXConverter.MissedNote();
             Debug.Log("Missed note: objectNumber " + objectNumber + "   objectChannel " + objectChannel);
             Destroy(gameObject);

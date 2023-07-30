@@ -99,18 +99,21 @@ public class DTXConverter : MonoBehaviour
 
     void createBarForChannelAtHeight(int pos, GameObject channel)
     {
+        bool transf = channel.GetComponent<Channel>().instrumentTransform;
         var newObj = Instantiate(beginingPrefab, channel.transform);
         newObj.transform.localPosition = new Vector3(0, (pos * noteSeparationValue), 0);
-
+        if (transf) newObj.transform.rotation = channel.GetComponent<Channel>().instrumentTransform.localRotation;
         newObj = Instantiate(quarterPrefab, channel.transform);
         newObj.transform.localPosition = new Vector3(0, ((pos + (float)0.25) * noteSeparationValue), 0);
-
+        if (transf) newObj.transform.rotation = channel.GetComponent<Channel>().instrumentTransform.localRotation;        
         newObj = Instantiate(quarterPrefab, channel.transform);
         newObj.transform.parent = channel.transform;
         newObj.transform.localPosition = new Vector3(0, ((pos + (float)0.50) * noteSeparationValue), 0);
-
+        if (transf) newObj.transform.rotation = channel.GetComponent<Channel>().instrumentTransform.localRotation;
         newObj = Instantiate(quarterPrefab, channel.transform);
         newObj.transform.localPosition = new Vector3(0, ((pos + (float)0.75) * noteSeparationValue), 0);
+        if (transf) newObj.transform.rotation = channel.GetComponent<Channel>().instrumentTransform.localRotation;
+
     }
 
 
@@ -178,7 +181,7 @@ public class DTXConverter : MonoBehaviour
 
     void generateMap()
     {
-        generateBars();
+        // generateBars();
         foreach (String s in map.Keys)
         {
             // ESTA MAL ANAR DE 0 A 3599 I FER PRIMER LA TIME SIGNATURE I DESPUES LA RESTA EN FUNCIO DEL NOU ESPAI
@@ -205,11 +208,15 @@ public class DTXConverter : MonoBehaviour
                         {
                             newParent.GetComponent<Channel>().defaultChip = base36ToDecimal(notes[m]);
                         }
-                        var newObj = Instantiate(notaPrefab, newParent.gameObject.transform);
+                        var newObj = Instantiate(newParent.notePrefab, newParent.gameObject.transform);
                         newObj.transform.localPosition = new Vector3(0, ((j + (float)(m * distance)) * noteSeparationValue) + 4, 0);
-                        newObj.transform.localRotation = newObj.transform.localRotation * Quaternion.Euler(0, 0, 90);
-                        if (newParent.instrumentTransform)
-                            newObj.transform.rotation = newParent.instrumentTransform.rotation;
+                        if (newParent.instrumentTransform){
+                            var thing = newObj.transform.Find("Model").transform;
+                            thing.rotation = newParent.instrumentTransform.rotation;
+                            thing.parent = newParent.instrumentTransform.parent;                     // Detach
+                            thing.localScale = newParent.instrumentTransform.localScale;
+                            thing.SetParent(newParent.transform, true);
+                        }                        
                         newObj.GetComponent<Nota>().objectNumber = base36ToDecimal(notes[m]);
                         newObj.GetComponent<Nota>().objectChannel = i;
                         newObj.GetComponent<Nota>().DTXConverter = this;
@@ -226,7 +233,7 @@ public class DTXConverter : MonoBehaviour
                             newObj.name = "Nota " + totalNotes;
                             totalNotes++;
                         }
-                        newObj.GetComponent<Nota>().GetComponent<Renderer>().material.SetColor("_BaseColor", c);
+                        // newObj.transform.Find("Model").GetComponent<Renderer>().material.SetColor("_BaseColor", c);
                         newObj.transform.parent = newParent.notesContainer.transform;
 
                     }

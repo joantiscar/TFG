@@ -48,6 +48,7 @@ public class Singleton : MonoBehaviour
         FileBrowser.SetDefaultFilter(".dtx");
         
         FileBrowser.AddQuickLink("Users", "C:\\Users", null);
+        StartGame();
     }
 
     // Update is called once per frame
@@ -84,21 +85,25 @@ public class Singleton : MonoBehaviour
         if (FileBrowser.Success)
         {
             path = FileBrowser.Result[0];
-            var newObj = Instantiate(MapPrefab, transform);
-            converter = newObj.transform.Find("Map").GetComponent<DTXConverter>();
-            converter.path = path;
-            lastScore = 0;
-            lastPerfectNotes = 0;
-            lastGoodNotes = 0;
-            lastMissedNotes = 0;
-            LeftRay.SetActive(false);
-            RightRay.SetActive(false);
-            Baqueta1.SetActive(true);
-            Baqueta2.SetActive(true);
+            StartGame();
         }
         
     }
-
+    
+    public void StartGame(){
+        var newObj = Instantiate(MapPrefab, transform);
+        converter = newObj.transform.Find("Map").GetComponent<DTXConverter>();
+        converter.auto = true;
+        converter.path = path;
+        lastScore = 0;
+        lastPerfectNotes = 0;
+        lastGoodNotes = 0;
+        lastMissedNotes = 0;
+        LeftRay.SetActive(false);
+        RightRay.SetActive(false);
+        Baqueta1.SetActive(true);
+        Baqueta2.SetActive(true);
+    }
 
     public static Singleton GetInstance()
     {

@@ -440,9 +440,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.26666668, g: 0.34509805, b: 0.32941177, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666796170059961}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666794541364590
 GameObject:
   m_ObjectHideFlags: 0
@@ -538,9 +539,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 1
   togleValue: 0
-  neonColor: {r: 0.1254902, g: 0.5803922, b: 0.6745098, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795820766058}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666794562050777
 GameObject:
   m_ObjectHideFlags: 0
@@ -824,9 +826,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 0}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666794573322626
 GameObject:
   m_ObjectHideFlags: 0
@@ -3844,6 +3847,12 @@ MonoBehaviour:
   LeftCymbal: 26
   CompasChannel: 2
   noteSeparationValue: 8
+  lastMeasure: 0
+  totalNotes: 0
+  notesPassed: 0
+  perfectNotes: 0
+  goodNotes: 0
+  missedNotes: 0
   auto: 1
 --- !u!1 &5331666794769070738
 GameObject:
@@ -4989,9 +4998,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.9254902, g: 0.84705883, b: 0.6901961, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795529902097}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795034899360
 GameObject:
   m_ObjectHideFlags: 0
@@ -5341,9 +5351,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0, g: 0, b: 0, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 0}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795096676270
 GameObject:
   m_ObjectHideFlags: 0
@@ -6526,9 +6537,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.20392157, g: 0.83137256, b: 0.09411765, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795480215755}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795480215755
 GameObject:
   m_ObjectHideFlags: 0
@@ -7159,9 +7171,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.8784314, g: 0.47058824, b: 0.09411765, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795909682495}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795551194196
 GameObject:
   m_ObjectHideFlags: 0
@@ -7902,9 +7915,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 1
   togleValue: 1
-  neonColor: {r: 0.17746994, g: 0.82079846, b: 0.95390093, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795820766058}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795670031228
 GameObject:
   m_ObjectHideFlags: 0
@@ -8418,9 +8432,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.1254902, g: 0.54901963, b: 0.6431373, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666794874735379}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795789921018
 GameObject:
   m_ObjectHideFlags: 0
@@ -8942,9 +8957,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.89411765, g: 0.1254902, b: 0.09411765, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666794523621443}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666795909682495
 GameObject:
   m_ObjectHideFlags: 0
@@ -10056,9 +10072,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.9098039, g: 0.1254902, b: 0.42352942, a: 0}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795161252482}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666796228584520
 GameObject:
   m_ObjectHideFlags: 0
@@ -10732,9 +10749,10 @@ MonoBehaviour:
   instrumentChannel: 0
   togleable: 0
   togleValue: 0
-  neonColor: {r: 0.9098039, g: 0.76862746, b: 0.09411765, a: 1}
+  color: {r: 0, g: 0, b: 0, a: 0}
   middle: {fileID: 5331666795551194196}
   maxTimeLight: 0.1
+  instrumentTransform: {fileID: 0}
 --- !u!1 &5331666796443501500
 GameObject:
   m_ObjectHideFlags: 0

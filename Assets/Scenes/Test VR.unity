@@ -4147,7 +4147,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df4b3a01f27ecf748910b4c6ddbb28ed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  path: 
+  path: C:\Users\GABE NEWELL\code\joantiscar\TFG_AHORASI\Assets\notUpload\Megadeth
+    - Hangar 18\Megadeth - Hangar 18.dtx
   UI: {fileID: 1000010829823561}
   UIMainMenu: {fileID: 310582622}
   UIPickSong: {fileID: 1659796112}
