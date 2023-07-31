@@ -8,14 +8,15 @@ using System.Text.RegularExpressions;
 using System.Globalization;
 using System;
 using System.Threading.Tasks;
+using TMPro;
 
 public class DTXConverter : MonoBehaviour
 {
     public string path;
     string[] fileContent;
-    public float[] BPMs = new float[1295];
-    public string[] chips = new string[1295];
-    public int[] volumes = new int[1295];
+    public float[] BPMs = new float[1296];
+    public string[] chips = new string[1296];
+    public int[] volumes = new int[1296];
     public float currentBPM = 0;
     public GameObject channels;
     public GameObject AudioSpawners;
@@ -23,7 +24,7 @@ public class DTXConverter : MonoBehaviour
     public GameObject quarterPrefab;
     public GameObject beginingPrefab;
     public GameObject[] chipSpawners;
-    public int score = 0;
+    
     bool over = true;
 
 
@@ -58,6 +59,10 @@ public class DTXConverter : MonoBehaviour
 
     double timeSignature = 1;
 
+    public TMP_Text AccLabel;
+    public TMP_Text ScoreLabel;
+    public TMP_Text ComboLabel;
+
 
 
     public int lastMeasure = 0;
@@ -66,6 +71,12 @@ public class DTXConverter : MonoBehaviour
     public int perfectNotes = 0;
     public int goodNotes = 0;
     public int missedNotes = 0;
+    public int score = 0;
+    public int combo = 0;
+    public int comboMultiplier = 1;
+    public int comboCounter = 0;
+    public int comboThreshold = 5;
+    public int ogComboThreshold = 5;
 
     public bool auto = false;
 
@@ -216,9 +227,7 @@ public class DTXConverter : MonoBehaviour
                             thing.rotation = newParent.instrumentTransform.rotation;
                             thing.parent = newParent.instrumentTransform.parent;                     // Detach
                             thing.localScale = newParent.instrumentTransform.localScale;
-                            thing.SetParent(newParent.transform, true);
-                            //thing.GetComponent<MeshRenderer>().material = MaterialTransparente;
-                            //thing.GetComponent<Outline>().OutlineColor = c;
+                            thing.SetParent(newObj.transform, true);
                         }                        
                         newObj.GetComponent<Nota>().objectNumber = base36ToDecimal(notes[m]);
                         newObj.GetComponent<Nota>().objectChannel = i;
@@ -270,7 +279,7 @@ public class DTXConverter : MonoBehaviour
 
         yield return new WaitForSeconds(1);
 
-        startGame();
+        if (auto) startGame();
 
 
     }
@@ -281,6 +290,7 @@ public class DTXConverter : MonoBehaviour
         {
             if (chips[i].Length > 0)
             {
+                if (chips[i].StartsWith("#WAV")) chips[i] = chips[i].Substring(7);
                 AudioClip c = await LoadClip(Path.GetFullPath(Path.Combine(path, @"..\")) + chips[i]);
                 chipSpawners[i] = new GameObject();
                 chipSpawners[i].transform.parent = AudioSpawners.transform;
@@ -321,7 +331,7 @@ public class DTXConverter : MonoBehaviour
             {
                 while (!uwr.isDone) await Task.Delay(5);
 
-                if (uwr.isNetworkError || uwr.isHttpError) Debug.Log($"{uwr.error}" + "File name: " + clipPath);
+                if (uwr.isNetworkError || uwr.isHttpError) Debug.Log($"{uwr.error}" + " File name: " + clipPath);
                 else
                 {
                     clip = DownloadHandlerAudioClip.GetContent(uwr);
@@ -336,9 +346,10 @@ public class DTXConverter : MonoBehaviour
         return clip;
     }
 
-    void startGame()
+    public void startGame()
     {
         currentBPM = BPMs[0];
+        if (currentBPM == 0) currentBPM = BPMs[1];
         BGMChannel.GetComponent<Channel>().moving = true;
         BPMChannel.GetComponent<Channel>().moving = true;
         HiHatCloseChannel.GetComponent<Channel>().moving = true;
@@ -368,6 +379,11 @@ public class DTXConverter : MonoBehaviour
         HiHatOpenChannel.GetComponent<Channel>().BPM = currentBPM;
         RideCymbalChannel.GetComponent<Channel>().BPM = currentBPM;
         LeftCymbalChannel.GetComponent<Channel>().BPM = currentBPM;
+        ComboLabel.text = "x" + combo.ToString();
+        ScoreLabel.text = score.ToString();
+        if (notesPassed > 0) AccLabel.text = (((perfectNotes + (goodNotes / 2)) / notesPassed) * 100).ToString() + "%";
+        else AccLabel.text = "100%";
+
     }
 
     public static List<string> GetChunks(string value, int chunkSize)
@@ -390,7 +406,14 @@ public class DTXConverter : MonoBehaviour
 
     public void IncreaseScore(int ammount)
     {
-        score += ammount;
+        comboCounter += 1;
+        combo += 1;
+        if (comboCounter >= comboThreshold){
+            comboMultiplier *= 2;
+            comboCounter = 0;
+            comboThreshold *= 2;
+        }
+        score += ammount * comboMultiplier;
     }
 
     public void PerfectNote()
@@ -413,12 +436,16 @@ public class DTXConverter : MonoBehaviour
     {
         notesPassed++;
         missedNotes++;
+        combo = 1;
+        comboCounter = 0;
+        comboMultiplier = 1;
+        comboThreshold = ogComboThreshold;
         checkForGameEnd();
     }
 
     void checkForGameEnd()
     {
-        if (notesPassed >= totalNotes)
+        if (notesPassed >= totalNotes && !over)
         {
             StartCoroutine(FinishGame());
         }
@@ -427,13 +454,13 @@ public class DTXConverter : MonoBehaviour
     IEnumerator FinishGame()
     {
         over = true;
-        yield return new WaitForSeconds(2);
         Singleton.GetInstance().lastScore = score;
         Singleton.GetInstance().lastTotalNotes = totalNotes;
         Singleton.GetInstance().lastPerfectNotes = perfectNotes;
         Singleton.GetInstance().lastGoodNotes = goodNotes;
         Singleton.GetInstance().lastMissedNotes = missedNotes;
         Singleton.GetInstance().CloseGameAndShowScore();
+        yield return new WaitForSeconds(2);
     }
 
     void parseFile()

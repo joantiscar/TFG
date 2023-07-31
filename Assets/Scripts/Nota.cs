@@ -23,7 +23,7 @@ public class Nota : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (visible) m.enabled = (transform.parent.transform.parent.localPosition.y + transform.localPosition.y) < 40;
+        if (visible) m.enabled = (transform.parent.transform.parent.localPosition.y + transform.localPosition.y) < 80;
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -38,11 +38,13 @@ public class Nota : MonoBehaviour
                 DTXConverter.playChip(objectNumber);
                 DTXConverter.PerfectNote();
                 Destroy(gameObject);
-                channel.StartCoroutine(channel.TurnLightsOn());
+                channel.StartCoroutine(channel.TurnLightsOn(1));
             }
             
         }else if (other.gameObject == channel.death){
             DTXConverter.MissedNote();
+            channel.StartCoroutine(channel.TurnLightsOn(3));
+
             Debug.Log("Missed note: objectNumber " + objectNumber + "   objectChannel " + objectChannel);
             Destroy(gameObject);
         }

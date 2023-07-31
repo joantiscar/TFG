@@ -13,36 +13,45 @@ public class ButtonVR : MonoBehaviour
     public GameObject button;
     public UnityEvent onPress;
     public UnityEvent onRelease;
-    GameObject presser;
     AudioSource sound;
     public GameObject cage;
-    bool isPressed;
+    bool isPressed1;
+    bool isPressed2;
 
     void Start()
     {
         sound = GetComponent<AudioSource>();
-        isPressed = false;
+        isPressed1 = false;
+        isPressed2 = false;
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if (!isPressed && other.name.Contains("Baqueta"))
+        if (!isPressed1 && other.name.Equals("Baqueta1") && other.gameObject.GetComponent<Rigidbody>().velocity.y < -0.1)
         {
-            //button.transform.localPosition = new Vector3(0, 0.003f, 0);
-            presser = other.gameObject;
             onPress.Invoke();
             if (sound != null) sound.Play();
-            isPressed = true;
+            isPressed1 = true;
+        }
+        if (!isPressed2 && other.name.Equals("Baqueta2") && other.gameObject.GetComponent<Rigidbody>().velocity.y < -0.1)
+        {
+            onPress.Invoke();
+            if (sound != null) sound.Play();
+            isPressed2 = true;
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject == presser)
+        if (other.name.Equals("Baqueta1"))
         {
-            //button.transform.localPosition = new Vector3(0, 0.015f, 0);
             onRelease.Invoke();
-            isPressed = false;
+            isPressed1 = false;
+        }
+        if (other.name.Equals("Baqueta2"))
+        {
+            onRelease.Invoke();
+            isPressed2 = false;
         }
     }
 }

@@ -28,9 +28,16 @@ public class Singleton : MonoBehaviour
     public TMP_Text GoodNotesLabel;
     public TMP_Text MissedNotesLabel;
     public GameObject LeftRay;
+    public GameObject LeftHand;
     public GameObject RightRay;
+    public GameObject RightHand;
+    public GameObject BaquetaPrefab;
     public GameObject Baqueta1;
+    public Transform Baqueta1Pos;
+    public bool Baqueta1Grabbed;
     public GameObject Baqueta2;
+    public Transform Baqueta2Pos;
+    public bool Baqueta2Grabbed;
     private void Awake()
     {
         if(inst == null)
@@ -48,7 +55,6 @@ public class Singleton : MonoBehaviour
         FileBrowser.SetDefaultFilter(".dtx");
         
         FileBrowser.AddQuickLink("Users", "C:\\Users", null);
-        StartGame();
     }
 
     // Update is called once per frame
@@ -71,6 +77,11 @@ public class Singleton : MonoBehaviour
         PerfectNotesLabel.text = lastPerfectNotes.ToString();
         GoodNotesLabel.text = lastGoodNotes.ToString();
         MissedNotesLabel.text = lastMissedNotes.ToString();
+        Destroy(Baqueta1);
+        Destroy(Baqueta2);
+        LeftHand.GetComponent<UnityEngine.XR.Interaction.Toolkit.ActionBasedController>().enableInputActions = true;
+        RightHand.GetComponent<UnityEngine.XR.Interaction.Toolkit.ActionBasedController>().enableInputActions = true;
+        
     }
 
     public void BackToMenu(){
@@ -85,6 +96,10 @@ public class Singleton : MonoBehaviour
         if (FileBrowser.Success)
         {
             path = FileBrowser.Result[0];
+            Baqueta1 = Instantiate(BaquetaPrefab, Baqueta1Pos);
+            Baqueta1.name = "Baqueta1";
+            Baqueta2 = Instantiate(BaquetaPrefab, Baqueta2Pos);
+            Baqueta2.name = "Baqueta2";
             StartGame();
         }
         
@@ -93,7 +108,6 @@ public class Singleton : MonoBehaviour
     public void StartGame(){
         var newObj = Instantiate(MapPrefab, transform);
         converter = newObj.transform.Find("Map").GetComponent<DTXConverter>();
-        converter.auto = true;
         converter.path = path;
         lastScore = 0;
         lastPerfectNotes = 0;
@@ -103,6 +117,12 @@ public class Singleton : MonoBehaviour
         RightRay.SetActive(false);
         Baqueta1.SetActive(true);
         Baqueta2.SetActive(true);
+    }
+
+    public void checkStart(){
+        if (Baqueta1Grabbed && Baqueta2Grabbed){
+            converter.startGame();
+        }
     }
 
     public static Singleton GetInstance()
