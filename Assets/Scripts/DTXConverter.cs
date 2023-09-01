@@ -78,6 +78,9 @@ public class DTXConverter : MonoBehaviour
     public int comboThreshold = 5;
     public int ogComboThreshold = 5;
 
+    string artist;
+    string songName;
+
     public bool auto = false;
 
     SortedDictionary<string, List<string>> map = new SortedDictionary<string, List<string>>();
@@ -191,7 +194,7 @@ public class DTXConverter : MonoBehaviour
         return c;
     }
 
-    void generateMap()
+    void    generateMap()
     {
         // generateBars();
         foreach (String s in map.Keys)
@@ -342,7 +345,6 @@ public class DTXConverter : MonoBehaviour
                 Debug.Log($"{err.Message}, {err.StackTrace} File name: {clipPath}");
             }
         }
-        // CREATE CHIP
         return clip;
     }
 
@@ -471,14 +473,16 @@ public class DTXConverter : MonoBehaviour
             foreach (string line in fileContent)
             {
                 string lineClean = line;
+                // Si conté un comentari, l'eliminem
                 int index = lineClean.LastIndexOf(";");
                 if (index >= 0) lineClean = lineClean.Substring(0, index);
                 if (lineClean.Length == 0) continue;
+                // Si no comença amb un #, es una linea incorrecta
                 if (lineClean[0] == '#')
-                {
+                {  
+                    // Si comença amb 5 digits, es un objecte
                     if (Regex.IsMatch(lineClean, "^#\\d{5}"))
                     {
-
                         string key = lineClean.Substring(1, 5);
                         string objects = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
                         if (!map.ContainsKey(key))
@@ -489,49 +493,27 @@ public class DTXConverter : MonoBehaviour
                         if (int.Parse(key.Substring(0, 3)) > lastMeasure) lastMeasure = int.Parse(key.Substring(0, 3));
 
                     }
-                    else if (lineClean.StartsWith("#TITLE:"))
+                    else if (lineClean.StartsWith("#TITLE"))
                     {
+                        songName = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
 
                     }
                     else if (lineClean.StartsWith("#ARTIST"))
                     {
-
-                    }
-                    else if (lineClean.StartsWith("#PREVIEW"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#PREIMAGE"))
-                    {
+                        artist = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
 
                     }
                     else if (lineClean.StartsWith("#BPM"))
                     {
-
+                        // Ignorar format antic 
                         if (!lineClean.Contains(':')) continue;
                         int pos;
-                        if (lineClean[4] == ':')
-                        {
-                            // BPM
-                            pos = 0;
-                        }
-                        else
-                        {
-                            // BPMzz
-                            pos = base36ToDecimal(lineClean.Substring(4, 2));
-                        }
+                        // Si no especifica un numero despres de BPM és el primer
+                        if (lineClean[4] == ':') pos = 0;
+                        else pos = base36ToDecimal(lineClean.Substring(4, 2));
                         string t = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
-
-                        if (t.Contains('.'))
-                        {
-                            BPMs[pos] = float.Parse(t, CultureInfo.InvariantCulture);
-                        }
-                        else
-                        {
-
-                            BPMs[pos] = (float)int.Parse(t, CultureInfo.InvariantCulture);
-                        }
-
+                        if (t.Contains('.')) BPMs[pos] = float.Parse(t, CultureInfo.InvariantCulture);
+                        else BPMs[pos] = (float)int.Parse(t, CultureInfo.InvariantCulture);
                     }
                     else if (lineClean.StartsWith("#WAV"))
                     {
@@ -545,70 +527,8 @@ public class DTXConverter : MonoBehaviour
                         string t = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
                         volumes[zz] = int.Parse(t);
                     }
-                    else if (lineClean.StartsWith("#COMMENT"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#PANEL"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#DLEVEL"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#GLEVEL"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#BLEVEL"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#HIDDENLEVEL"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#STAGEFILE"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#PREMOVIE"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#BACKGROUND"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#BACKGROUND_GR"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-
-                    }
+                    
+               
                 }
             }
         }

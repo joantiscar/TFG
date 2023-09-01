@@ -11,8 +11,7 @@ public class Instrument : MonoBehaviour
 
     }
 
-    public void Play(int force){
-        // TODO: multiples sonidos
+    public void Play(){
         channel.GetComponent<Channel>().handleInput();
     }
 }

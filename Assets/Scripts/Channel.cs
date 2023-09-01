@@ -30,24 +30,15 @@ public class Channel : MonoBehaviour
     void Start()
     {
         c = converter.GetComponent<DTXConverter>();
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (moving)
-        {
-            transform.Translate(Vector3.Scale(Vector3.Scale(new Vector3(0, -1, 0), (transform.parent.transform.localScale)), c.transform.localScale) * Time.deltaTime * BPM / 240 * c.noteSeparationValue);
-        }
-        if (Input.GetKeyDown(button))
-        {
-            handleInput();
+        if (moving) transform.Translate(Vector3.Scale(Vector3.Scale(new Vector3(0, -1, 0), (transform.parent.transform.localScale)), c.transform.localScale) * Time.deltaTime * BPM / 240 * c.noteSeparationValue);
+        if (Input.GetKeyDown(button)) handleInput();
 
-        }
     }
-
-
     public IEnumerator TurnLightsOn(int c)
     {
         if (defaultChip != -1 && lightPrefab){
@@ -60,13 +51,10 @@ public class Channel : MonoBehaviour
             if (c == 3) col = a.GetComponent<TravelingLight>().Miss;
             mat.SetColor("_EmissionColor", col);
             yield return new WaitForSecondsRealtime(0.0125f);
-        }
-        
+        }   
     }
-
     public void handleInput()
     {
-
         int co = 0;
         if (notesContainer.transform.childCount > 0)
         {
@@ -76,8 +64,6 @@ public class Channel : MonoBehaviour
                 Transform g = notesContainer.transform.GetChild(i);
                 if (g.position.y < a.transform.position.y) a = g.GetComponent<Nota>();
             }
-
-
             if (a.DTXConverter)
             {
                 float distance = Math.Abs(Vector3.Distance (a.transform.position, judgement.transform.position));
@@ -99,7 +85,6 @@ public class Channel : MonoBehaviour
                     Destroy(a.gameObject);
                     co = 3;
                 }
-                Debug.Log(distance);
                 defaultChip = a.objectNumber;
             }
             else
