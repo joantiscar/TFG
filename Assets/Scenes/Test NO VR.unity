@@ -238,7 +238,7 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_LightCookieSize: {x: 1, y: 1}
   m_LightCookieOffset: {x: 0, y: 0}
---- !u!1001 &628474440
+--- !u!1001 &416049138
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -304,11 +304,6 @@ PrefabInstance:
     - target: {fileID: 617925369759187798, guid: 123c74de4befddb47be43259ee4307a4,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2436418573554267445, guid: 123c74de4befddb47be43259ee4307a4,
-        type: 3}
-      propertyPath: auto
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2436418573554267445, guid: 123c74de4befddb47be43259ee4307a4,

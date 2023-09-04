@@ -238,7 +238,7 @@ public class DTXConverter : MonoBehaviour
                         {
                             newObj.GetComponent<Nota>().FootIcon.SetActive(true);
                         }
-                        if (i == 1 || i == 8)
+                        if (i == 1 || i == 8 || i == 3)
                         {
                             newObj.GetComponent<Nota>().visible = false;
                         }
@@ -372,9 +372,9 @@ public class DTXConverter : MonoBehaviour
         HiHatOpenChannel.GetComponent<Channel>().BPM = currentBPM;
         RideCymbalChannel.GetComponent<Channel>().BPM = currentBPM;
         LeftCymbalChannel.GetComponent<Channel>().BPM = currentBPM;
-        ComboLabel.text = "x" + combo.ToString();
+        ComboLabel.text = "x" + comboMultiplier.ToString();
         ScoreLabel.text = score.ToString();
-        if (notesPassed > 0) AccLabel.text = (((perfectNotes + (goodNotes / 2)) / notesPassed) * 100).ToString() + "%";
+        if (notesPassed > 0) AccLabel.text = ((float) (((perfectNotes + (goodNotes / 2)) / notesPassed) * 100)).ToString() + "%";
         else AccLabel.text = "100%";
 
     }

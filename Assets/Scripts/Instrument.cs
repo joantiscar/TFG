@@ -12,6 +12,7 @@ public class Instrument : MonoBehaviour
     }
 
     public void Play(){
+        Debug.Log("hit " + channel.GetComponent<Channel>().name);
         channel.GetComponent<Channel>().handleInput();
     }
 }

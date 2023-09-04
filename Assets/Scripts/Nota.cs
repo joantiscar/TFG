@@ -44,8 +44,6 @@ public class Nota : MonoBehaviour
         }else if (other.gameObject == channel.death){
             DTXConverter.MissedNote();
             channel.StartCoroutine(channel.TurnLightsOn(3));
-
-            Debug.Log("Missed note: objectNumber " + objectNumber + "   objectChannel " + objectChannel);
             Destroy(gameObject);
         }
     }

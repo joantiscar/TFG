@@ -30,13 +30,11 @@ public class ButtonVR : MonoBehaviour
         if (!isPressed1 && other.name.Equals("Baqueta1") && other.gameObject.GetComponent<Rigidbody>().velocity.y < -0.1)
         {
             onPress.Invoke();
-            if (sound != null) sound.Play();
             isPressed1 = true;
         }
         if (!isPressed2 && other.name.Equals("Baqueta2") && other.gameObject.GetComponent<Rigidbody>().velocity.y < -0.1)
         {
             onPress.Invoke();
-            if (sound != null) sound.Play();
             isPressed2 = true;
         }
     }

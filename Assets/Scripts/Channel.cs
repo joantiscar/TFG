@@ -66,10 +66,8 @@ public class Channel : MonoBehaviour
                 if (Vector3.Distance (g.transform.position, judgement.transform.position) 
                 < (Vector3.Distance (a.transform.position, judgement.transform.position))) a = g.GetComponent<Nota>();
             }
-            if (a.DTXConverter)
-            {
+
                 float distance = Math.Abs(Vector3.Distance (a.transform.position, judgement.transform.position));
-                Debug.Log(distance);
                 if (distance < 0.25)
                 {
                     c.PerfectNote();
@@ -89,9 +87,6 @@ public class Channel : MonoBehaviour
                     co = 3;
                 }
                 defaultChip = a.objectNumber;
-            }
-            else Destroy(a.gameObject);
-
         }
         if (defaultChip != -1)
         {

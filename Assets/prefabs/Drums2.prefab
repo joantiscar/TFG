@@ -5673,7 +5673,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2436418573775546446}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.81690454, y: 0.47504756, z: -5.589581}
+  m_LocalPosition: {x: -4.17, y: 0.48, z: -25.38}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -10357,7 +10357,7 @@ MonoBehaviour:
       - m_Target: {fileID: 8934411130177693201}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -11700,7 +11700,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 859835344158251397}
-  - component: {fileID: 4318970668022818389}
   - component: {fileID: 3197201433571306731}
   m_Layer: 7
   m_Name: Collider
@@ -11724,38 +11723,6 @@ Transform:
   m_Father: {fileID: 8965474722031003805}
   m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4318970668022818389
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7291942196443974657}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 593d3ac6e08f4468b819285084eac4dd, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  button: {fileID: 8197671154584753004}
-  onPress:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 3197201433571306731}
-        m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
-        m_MethodName: Play
-        m_Mode: 3
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  onRelease:
-    m_PersistentCalls:
-      m_Calls: []
-  cage: {fileID: 5679850331552014416}
 --- !u!114 &3197201433571306731
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12043,10 +12010,10 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617925369524806809}
+      - m_Target: {fileID: 8934411130177693201}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12152,10 +12119,10 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617925369772896286}
+      - m_Target: {fileID: 8934411130177693201}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12408,10 +12375,10 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617925370126927531}
+      - m_Target: {fileID: 8934411130177693201}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12815,10 +12782,10 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617925370526778603}
+      - m_Target: {fileID: 8934411130177693201}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -12927,7 +12894,7 @@ MonoBehaviour:
       - m_Target: {fileID: 617925370707295023}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13106,7 +13073,7 @@ MonoBehaviour:
       - m_Target: {fileID: 617925371018809292}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13361,10 +13328,10 @@ MonoBehaviour:
   onPress:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 617925371258367878}
+      - m_Target: {fileID: 8934411130177693201}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -13622,7 +13589,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1950129851235066348}
         m_TargetAssemblyTypeName: Instrument, Assembly-CSharp
         m_MethodName: Play
-        m_Mode: 3
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -14356,12 +14323,12 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0c7fe69233668b442a569df771fe04a8,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.134
+      value: 0.05
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c7fe69233668b442a569df771fe04a8,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.011
+      value: 0.044
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0c7fe69233668b442a569df771fe04a8,
         type: 3}
