@@ -35,7 +35,8 @@ public class Channel : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (moving) transform.Translate(Vector3.Scale(Vector3.Scale(new Vector3(0, -1, 0), (transform.parent.transform.localScale)), c.transform.localScale) * Time.deltaTime * BPM / 240 * c.noteSeparationValue);
+        if (moving) transform.Translate(Vector3.Scale(Vector3.Scale(new Vector3(0, -1, 0), 
+        (transform.parent.transform.localScale)), c.transform.localScale) * (float) Time.deltaTime * (float) BPM / (float) 240 * (float) c.noteSeparationValue);
         if (Input.GetKeyDown(button)) handleInput();
 
     }
@@ -62,24 +63,26 @@ public class Channel : MonoBehaviour
             for (int i = 0; i < notesContainer.transform.childCount; i++)
             {
                 Transform g = notesContainer.transform.GetChild(i);
-                if (g.position.y < a.transform.position.y) a = g.GetComponent<Nota>();
+                if (Vector3.Distance (g.transform.position, judgement.transform.position) 
+                < (Vector3.Distance (a.transform.position, judgement.transform.position))) a = g.GetComponent<Nota>();
             }
             if (a.DTXConverter)
             {
                 float distance = Math.Abs(Vector3.Distance (a.transform.position, judgement.transform.position));
-                if (distance < 50)
+                Debug.Log(distance);
+                if (distance < 0.25)
                 {
                     c.PerfectNote();
                     Destroy(a.gameObject);
                     co = 1;
                 }
-                else if (distance < 100)
+                else if (distance < 0.5)
                 {
                     c.GoodNote();
                     Destroy(a.gameObject);
                     co = 2;
                 }
-                else if (distance < 150)
+                else if (distance < 0.75)
                 {
                     c.MissedNote();
                     Destroy(a.gameObject);
@@ -87,18 +90,13 @@ public class Channel : MonoBehaviour
                 }
                 defaultChip = a.objectNumber;
             }
-            else
-            {
-                Destroy(a.gameObject);
-            }
-        }
+            else Destroy(a.gameObject);
 
+        }
         if (defaultChip != -1)
         {
             c.playChip(defaultChip);
             if (lightPrefab) StartCoroutine(TurnLightsOn(co));
         }
-
-
     }
 }

@@ -14,9 +14,9 @@ public class DTXConverter : MonoBehaviour
 {
     public string path;
     string[] fileContent;
-    public float[] BPMs = new float[1296];
-    public string[] chips = new string[1296];
-    public int[] volumes = new int[1296];
+    float[] BPMs = new float[1297];
+    public string[] chips = new string[1297];
+    int[] volumes = new int[1297];
     public float currentBPM = 0;
     public GameObject channels;
     public GameObject AudioSpawners;
@@ -25,7 +25,8 @@ public class DTXConverter : MonoBehaviour
     public GameObject beginingPrefab;
     public GameObject[] chipSpawners;
     
-    bool over = true;
+    bool over = false;
+    public bool test = false;
 
 
     public GameObject BGMChannel;
@@ -194,12 +195,10 @@ public class DTXConverter : MonoBehaviour
         return c;
     }
 
-    void    generateMap()
+    void generateMap()
     {
-        // generateBars();
         foreach (String s in map.Keys)
         {
-            // ESTA MAL ANAR DE 0 A 3599 I FER PRIMER LA TIME SIGNATURE I DESPUES LA RESTA EN FUNCIO DEL NOU ESPAI
             int i = int.Parse(s.Substring(3));
             int j = int.Parse(s.Substring(0, 3));
             List<string> objectsArray;
@@ -280,27 +279,27 @@ public class DTXConverter : MonoBehaviour
 
         createSoundSpawners();
 
-        yield return new WaitForSeconds(1);
+        yield return new WaitForSeconds(3);
 
-        if (auto) startGame();
+        if (auto || test) startGame();
 
 
     }
 
     async Task<bool> createSoundSpawners()
-    {
-        for (int i = 1; i < 1295; i++)
+    {   
+        for (int i = 1; i < 1295; i++) // Per cada possible chip
         {
-            if (chips[i].Length > 0)
+            if (chips[i].Length > 0) // Si la chip existeix
             {
-                if (chips[i].StartsWith("#WAV")) chips[i] = chips[i].Substring(7);
+                if (chips[i].StartsWith("#WAV")) chips[i] = chips[i].Substring(7); // Si no hem borrat el #WAV, el borrem
                 AudioClip c = await LoadClip(Path.GetFullPath(Path.Combine(path, @"..\")) + chips[i]);
                 chipSpawners[i] = new GameObject();
                 chipSpawners[i].transform.parent = AudioSpawners.transform;
                 chipSpawners[i].AddComponent<AudioSource>();
                 chipSpawners[i].name = chips[i] + "(" + i + ")";
                 chipSpawners[i].GetComponent<AudioSource>().clip = c;
-                if (volumes[i] != 0)
+                if (volumes[i] != 0) // Si hi ha indicat el volum per aquest chipA
                 {
                     chipSpawners[i].GetComponent<AudioSource>().volume = (float)volumes[i] / 100;
                 }
@@ -312,13 +311,13 @@ public class DTXConverter : MonoBehaviour
 
     async Task<AudioClip> LoadClip(string clipPath)
     {
-        AudioClip clip = null;
-        AudioType x;
+        AudioClip clip = null; AudioType x;
         if (clipPath.ToUpper().EndsWith("WAV")) x = AudioType.WAV;
         else if (clipPath.ToUpper().EndsWith("MP3")) x = AudioType.MPEG;
         else if (clipPath.ToUpper().EndsWith("OGG")) x = AudioType.OGGVORBIS;
         else if (clipPath.ToUpper().EndsWith("XA"))
         {
+            // Si el fitxer es .XA, intentem buscar una alternativa .WAV
             clipPath = clipPath.Replace(".xa", ".WAV");
             clipPath = clipPath.Replace(".XA", ".WAV");
             clipPath = clipPath.ToUpper();
@@ -328,22 +327,14 @@ public class DTXConverter : MonoBehaviour
         using (UnityWebRequest uwr = UnityWebRequestMultimedia.GetAudioClip(clipPath, x))
         {
             uwr.SendWebRequest();
-
             // wrap tasks in try/catch, otherwise it'll fail silently
             try
             {
                 while (!uwr.isDone) await Task.Delay(5);
-
                 if (uwr.isNetworkError || uwr.isHttpError) Debug.Log($"{uwr.error}" + " File name: " + clipPath);
-                else
-                {
-                    clip = DownloadHandlerAudioClip.GetContent(uwr);
-                }
+                else clip = DownloadHandlerAudioClip.GetContent(uwr);    
             }
-            catch (Exception err)
-            {
-                Debug.Log($"{err.Message}, {err.StackTrace} File name: {clipPath}");
-            }
+            catch (Exception err){ Debug.Log($"{err.Message}, {err.StackTrace} File name: {clipPath}");}
         }
         return clip;
     }
@@ -438,7 +429,7 @@ public class DTXConverter : MonoBehaviour
     {
         notesPassed++;
         missedNotes++;
-        combo = 1;
+        combo = 0;
         comboCounter = 0;
         comboMultiplier = 1;
         comboThreshold = ogComboThreshold;
@@ -461,6 +452,7 @@ public class DTXConverter : MonoBehaviour
         Singleton.GetInstance().lastPerfectNotes = perfectNotes;
         Singleton.GetInstance().lastGoodNotes = goodNotes;
         Singleton.GetInstance().lastMissedNotes = missedNotes;
+        Singleton.GetInstance().songTitle = artist + " - " + songName;
         Singleton.GetInstance().CloseGameAndShowScore();
         yield return new WaitForSeconds(2);
     }
@@ -493,16 +485,8 @@ public class DTXConverter : MonoBehaviour
                         if (int.Parse(key.Substring(0, 3)) > lastMeasure) lastMeasure = int.Parse(key.Substring(0, 3));
 
                     }
-                    else if (lineClean.StartsWith("#TITLE"))
-                    {
-                        songName = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
-
-                    }
-                    else if (lineClean.StartsWith("#ARTIST"))
-                    {
-                        artist = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
-
-                    }
+                    else if (lineClean.StartsWith("#TITLE")) songName = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
+                    else if (lineClean.StartsWith("#ARTIST")) artist = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();      
                     else if (lineClean.StartsWith("#BPM"))
                     {
                         // Ignorar format antic 
@@ -527,8 +511,6 @@ public class DTXConverter : MonoBehaviour
                         string t = lineClean.Substring(lineClean.LastIndexOf(':') + 1).TrimEnd().TrimStart();
                         volumes[zz] = int.Parse(t);
                     }
-                    
-               
                 }
             }
         }

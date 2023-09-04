@@ -16,7 +16,7 @@ public class DisapearWhenNotNeeded : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (transform.position.y < transform.parent.parent.position.y) Destroy(gameObject);
-        //m.enabled = (transform.parent.localPosition.y + transform.localPosition.y) < 40;
+        if (transform.position.y < transform.parent.parent.position.y) Destroy(gameObject);
+        m.enabled = (transform.parent.localPosition.y + transform.localPosition.y) < 40;
     }
 }

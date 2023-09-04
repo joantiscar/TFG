@@ -22,11 +22,13 @@ public class Singleton : MonoBehaviour
     public int lastPerfectNotes = 0;
     public int lastGoodNotes = 0;
     public int lastMissedNotes = 0;
+    public string songTitle = "";
     public TMP_Text TotalScoreLabel;
     public TMP_Text AccLabel;
     public TMP_Text PerfectNotesLabel;
     public TMP_Text GoodNotesLabel;
     public TMP_Text MissedNotesLabel;
+    public TMP_Text SongTitleLabel;
     public GameObject LeftRay;
     public GameObject LeftHand;
     public GameObject RightRay;
@@ -77,6 +79,7 @@ public class Singleton : MonoBehaviour
         PerfectNotesLabel.text = lastPerfectNotes.ToString();
         GoodNotesLabel.text = lastGoodNotes.ToString();
         MissedNotesLabel.text = lastMissedNotes.ToString();
+        SongTitleLabel.text = songTitle;
         Destroy(Baqueta1);
         Destroy(Baqueta2);
         LeftHand.GetComponent<UnityEngine.XR.Interaction.Toolkit.ActionBasedController>().enableInputActions = true;
